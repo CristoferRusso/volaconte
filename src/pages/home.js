@@ -9,7 +9,6 @@ import Plane3 from '../images/plane3.jpg'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ContactForm from '../components/contact';
-import { height } from '@mui/system';
 
 function Home() {
 

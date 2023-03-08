@@ -17,7 +17,7 @@ class Navbar extends React.Component {
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
-            <Link to="/home"><Button color='primary'>Home</Button></Link>
+            <Link to="/"><Button color='primary'>Home</Button></Link>
             </li>
             <li className="nav-item">
             <Link to="/login"><Button color='primary'>Login</Button></Link>
