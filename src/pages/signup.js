@@ -14,8 +14,8 @@ import Footer from "../components/footer";
 import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 
-function SignUp() {
 
+function SignUp() {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -23,7 +23,9 @@ function SignUp() {
   const [email, setEmail] = useState('');
 
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+   
     if (firstName.length === 0) {
       toast.error("Name has left Blank!");
     }
@@ -34,36 +36,38 @@ function SignUp() {
       toast.error("Email has left Blank!");
 
     } else if (password.length === 0) {
-      toast.error("password has left Blank!");
+      toast.error("Password has left Blank!");
     }
     else {
+         handleApi();
+      }
+    }
 
+    function handleApi() {
       const url = 'http://localhost:3001/src/server/signup.php';
       let fData = new FormData();
       fData.append('firstName', firstName);
       fData.append('lastName', lastName);
       fData.append('password', password);
       fData.append('email', email);
-
+      
       fetch(url, {
         method: 'POST',
-        body: fData
+        body: fData,
       })
-       
-        .then((response) => {
-          console.log('Success', response);
-          return response.json();
-        })
-        .then(data => {
-          alert(data)
-        })
-        .catch((err) => {
-          console.log('Error', err);
-        })
+      .then(response => response.text())
+      .then(data => {
+        if(data ===  'You are registered') {
+          console.log(data);
+        } else {
+          console.log(data);
+        }
       
-        
+      })
+    
     }
-  }
+  
+  
 
 
   function Copyright(props) {
@@ -71,7 +75,7 @@ function SignUp() {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://mui.com/">
-          Your Website
+          VolaConTe
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}

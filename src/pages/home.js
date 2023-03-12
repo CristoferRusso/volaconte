@@ -32,8 +32,8 @@ function handleClick() {
         <img src={Plane2} className="card-img-top" ></img>
           <div className="container">
             <div className="carousel-caption text-start">
-              <h1>Example headline.</h1>
-              <p>Some representative placeholder content for the first slide of the carousel.</p>
+              <h1 id='brand'>Example headline.</h1>
+              <p id='brand'>Some representative placeholder content for the first slide of the carousel.</p>
               <ul className="navbar-nav me-auto mb-2 mb-md-0">
               <li className="nav-item">
               <Link to="/signup"><Button color='secondary' variant='contained'>Signup Today</Button></Link>
@@ -58,13 +58,13 @@ function handleClick() {
           <img className="bd-placeholder-img rounded-circle" width="140" height="140" src={Plane1} role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
             <h2 className="fw-normal">Heading</h2>
             <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-            <p><a className="btn btn-secondary" href="#">View details &raquo;</a></p>
+            <Button color='secondary' onClick={handleClick} variant='contained'>{text}</Button>
           </div>
           <div className="col-lg-4">
           <img className="bd-placeholder-img rounded-circle" width="140" height="140" src={Plane3} role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
             <h2 className="fw-normal">Heading</h2>
-            <p>And lastly this, the third column of representative placeholder content.</p>
-            <p><a className="btn btn-secondary" href="#">View details &raquo;</a></p>
+            <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+            <Button color='secondary' onClick={handleClick} variant='contained'>{text}</Button>
           </div>
         </div>
     

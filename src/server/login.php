@@ -1,64 +1,52 @@
 
 <?php
-require 'db.php';
-require 'functions.php';
 
-session_start();
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
 
-$errors = '';
-if (empty($_POST['email'])) {
-    $errors .= 'Email is required <br>';
-} else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors .= 'Invalid email <br>';
-}
-if (empty($_POST['password'])) {
-    $errors .= 'Password is required<br>';
-}
-
-$sql = "SELECT id,email,password,name,surname FROM users WHERE email =?";
-$stm = $link->prepare($sql);
-$stm->bind_param('s', ($_POST['email']));
-$res = $stm->execute();
-$result = $stm->get_result();
-
-if ($res && $result->num_rows) {
-    $row = $result->fetch_assoc();
-    if (password_verify($_POST['password'], $row['password'])) {
-        $_SESSION['messageLogin'] = 'You are logged in ';
-        $_SESSION['user_email'] = $_POST['email'];
-        $_SESSION['name'] = $row['name'];
-        $_SESSION['surname'] = $row['surname'];
-        $_SESSION['user_id'] = $row['id'];
-              
-        $res = [
-            'data' => []   
-        ];
-    
-        $link = dbConnect();
-        $sql = 'SELECT * FROM `users` INNER JOIN ticket on users.email = ticket.id WHERE users.email = "'.$_POST['email'].'"';
-        $stm = $link->prepare($sql);
-        $stm->execute();
-        $res['data'] =  $stm->fetchAll(PDO::FETCH_ASSOC);
-        $_SESSION['res'] =  $res['data'];
-
-        header('Location: login.php');
-
-    
-    } else {
-
-        $_SESSION['errors'] = 'Wrong email or password';
-        header('Location: login.php');
-        die();
-    }
+$conn = mysqli_connect('localhost', 'root', '06051994Numenor.', 'volaconte');
+if (!mysqli_connect('localhost', 'root', '06051994Numenor.', 'volaconte')) {
+	echo 'ERROR: ' . mysqli_connect_error();
 } else {
-    $errors .= 'This email does not exist';
+	//echo "online";
 }
 
-if (!empty($errors)) {
 
-    $_SESSION['errors'] = $errors;
-    header('Location: login.php');
-    die();
+
+
+
+$userData['flag'] = 0;
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stm = $conn->prepare($sql);
+    $stm->bind_param('s', ($_POST['email']));
+    $res = $stm->execute();
+    $result = $stm->get_result();
+
+    if ($res && $result->num_rows) {
+        $row = $result->fetch_assoc();
+        if (password_verify($_POST['password'], $row['password'])) {
+
+          
+            $userData['name'] = $row['name'];
+            $userData['surname'] = $row['surname'];
+            $userData['user_id'] = $row['id'];
+            $userData['flag'] = 1;
+            echo json_encode($userData);
+            
+        } else {
+            $userData['error'] = 'Wrong email or password';
+            echo json_encode($userData);
+        }
+        $conn->close();
+    } else {
+        $userData['error'] = 'This email does not exist';
+        echo json_encode($userData);
+    }
+
 }
 
 ?>
