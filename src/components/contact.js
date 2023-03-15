@@ -15,7 +15,6 @@ class ContactForm extends React.Component {
 
             <section className="ftco-section ">
                 <div className="container">
-
                     <div className="row justify-content-center">
                         <div className="col-md-10">
                             <div className="wrapper">

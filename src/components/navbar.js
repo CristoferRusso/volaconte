@@ -1,14 +1,10 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import BoxNav from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -30,14 +26,16 @@ function Navbar(props) {
   const drawer = (
     <BoxNav onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-      <a className="navbar-brand" id='brand' >VolaConTe</a>
-       <img src={Logo} className="card-img-top" style={{ width: '2rem' }} ></img>
+        <a className="navbar-brand" id='brand' >VolaConTe</a>
+        <img src={Logo} className="card-img-top" style={{ width: '2rem' }} ></img>
       </Typography>
       <Divider />
       <List>
-          <Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link>
-          <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
-          <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>
+        <ul style={{listStyleType: 'none'}}>
+          <li><Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link></li>
+          <li><Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link></li>
+          <li><Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link></li>
+        </ul>
       </List>
     </BoxNav>
   );
@@ -62,12 +60,12 @@ function Navbar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', textAlign: 'left' } }}
           >
-          <BoxNav>
-            <img src={Logo} className="card-img-top" style={{ width: '2rem' }} ></img>
-            <h5 id='brand'>{props.name}</h5>
+            <BoxNav>
+              <img src={Logo} className="card-img-top" style={{ width: '2rem' }} ></img>
+              <h5 id='brand'>{props.name}</h5>
             </BoxNav>
           </Typography>
-          <BoxNav sx={{ display: { xs: 'none', sm: 'block',  } }}>
+          <BoxNav sx={{ display: { xs: 'none', sm: 'block', } }}>
             <Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link>
             <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
             <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>
