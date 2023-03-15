@@ -9,6 +9,7 @@ import Plane3 from '../images/plane3.jpg'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ContactForm from '../components/contact';
+import SearchBar from '../components/searchBar';
 
 function Home() {
 
@@ -26,14 +27,14 @@ function handleClick() {
       <main>
       <Navbar />
      <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
-     
+
       <div className="carousel-inner">
         <div className="carousel-item active">
         <img src={Plane2} className="card-img-top" ></img>
           <div className="container">
             <div className="carousel-caption text-start">
-              <h1 id='brand'>Example headline.</h1>
-              <p id='brand'>Some representative placeholder content for the first slide of the carousel.</p>
+              <h1 id='brand'>VolaConTe</h1>
+              <p id='brand'>Simply the best fly</p>
               <ul className="navbar-nav me-auto mb-2 mb-md-0">
               <li className="nav-item">
               <Link to="/signup"><Button color='secondary' variant='contained'>Signup Today</Button></Link>
@@ -43,15 +44,16 @@ function handleClick() {
           </div>
         </div>
       </div>
+
     </div>
-      
+    <SearchBar />
+
       <div className="container marketing">
-    
         <div className="row">
           <div className="col-lg-4">
             <img className="bd-placeholder-img rounded-circle" width="140" height="140" src={Plane2} role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
             <h2 className="fw-normal">Heading</h2>
-            <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+            <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
             <Button color='secondary' onClick={handleClick} variant='contained'>{text}</Button>
           </div>
           <div className="col-lg-4">

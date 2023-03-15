@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Footer from "../components/footer";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import Plane1 from '../images/plane1.jpg'
 
 
 //import { useNavigate } from "react-router-dom";
@@ -72,7 +73,7 @@ function Login() {
 
   return (
     <main >
-      <div className="container" style={{ width: '100%;', height: '1000px', }}>
+      <div className="container" style={{ width: '100%;', height: '1000px',  backgroundImage:'../images/plane1.jpg' }}>
         <Navbar />
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">

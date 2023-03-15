@@ -43,32 +43,34 @@ function SignUp() {
       }
     }
 
-    function handleApi() {
+
+
+
+  function handleApi() {
       const url = 'http://localhost:3001/src/server/signup.php';
       let fData = new FormData();
       fData.append('firstName', firstName);
       fData.append('lastName', lastName);
       fData.append('password', password);
       fData.append('email', email);
-      
       fetch(url, {
         method: 'POST',
         body: fData,
       })
       .then(response => response.text())
       .then(data => {
-        if(data ===  'You are registered') {
-          console.log(data);
+        let obj = JSON.parse(data);
+        if(obj.flag ===  1) {
+          toast.success(obj.success);
         } else {
-          console.log(data);
+          toast.error(obj.error);
         }
       
       })
     
     }
   
-  
-
+    
 
   function Copyright(props) {
     return (
@@ -101,7 +103,6 @@ function SignUp() {
               }}
             >
               <ToastContainer />
-
               <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
