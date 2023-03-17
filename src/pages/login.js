@@ -1,19 +1,20 @@
-import Navbar from "../components/navbar";
+import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from "react-router-dom";
-import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Footer from "../components/footer";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import Plane1 from '../images/plane1.jpg'
+import { Link } from "react-router-dom";
+import Navbar from '../components/navbar';
+import Logo from '../images/paper-plane.png';
 
 
 //import { useNavigate } from "react-router-dom";
@@ -44,16 +45,16 @@ function Login() {
         method: 'POST',
         body: fData
       })
-      .then(response => response.text())
-      .then(data => {
-        const obj = JSON.parse(data);
-        if(obj.flag === 1) {
-          toast.success('Hello'+' '+obj.name)
-          setDataUsers(obj.name);
-        } else  {
-         toast.error(obj.error);
-        }    
-       })
+        .then(response => response.text())
+        .then(data => {
+          const obj = JSON.parse(data);
+          if (obj.flag === 1) {
+            toast.success('Hello' + ' ' + obj.name)
+            setDataUsers(obj.name);
+          } else {
+            toast.error(obj.error);
+          }
+        })
     }
   }
 
@@ -72,78 +73,100 @@ function Login() {
   const theme = createTheme();
 
   return (
-    <main >
-      <div className="container" style={{ width: '100%;', height: '1000px',  backgroundImage:'../images/plane1.jpg' }}>
-        <Navbar />
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 25,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <ToastContainer />
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Login
-              </Typography>
-              <Box component="form" sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="email"
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
 
+    <ThemeProvider theme={theme}>
+      <Navbar />
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://source.unsplash.com/random/city?clouds)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <ToastContainer />
+
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5" color='secondary'>
+              Login
+            </Typography>
+            <Box component="form" sx={{ mt: 3 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                  />
                 </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  color="secondary"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  onClick={handleLogin}
-                >
-                  Login
-                </Button>
-                <Grid container justifyContent="flex-end">
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
                 </Grid>
-              </Box>
+
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                color="secondary"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleLogin}
+              >
+                Login
+              </Button>
             </Box>
-            <Copyright sx={{ mt: 6 }} />
-          </Container>
-        </ThemeProvider>
-      </div>
+          </Box>
+          <img src={Logo} className="card-img-top" style={{ width: '12rem' }} ></img>
+          <Copyright sx={{ mt: 5 }} />
+        </Grid>
+      </Grid>
       <Footer />
-    </main>
+    </ThemeProvider>
   );
+
+
 }
 
 export default Login;
+
+
+
+
+
+

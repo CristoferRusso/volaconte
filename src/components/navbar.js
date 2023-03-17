@@ -11,9 +11,15 @@ import Typography from '@mui/material/Typography';
 import ButtonNav from '@mui/material/Button';
 import Logo from '../images/paper-plane.png';
 import { Link } from "react-router-dom";
-
+import { useState } from 'react';
 
 function Navbar(props) {
+
+
+  const [obj, objSet] = useState('');
+
+
+
 
   const drawerWidth = 240;
   const { window } = props;
@@ -42,6 +48,25 @@ function Navbar(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+ const userData = () => {
+
+  const url = 'http://localhost:3001/src/api/userData.php';
+ 
+  fetch(url, {
+    method: 'GET',
+  })
+  .then(response => response.text())
+  .then(data => {
+    obj = JSON.parse(data);
+  }
+  )
+ }
+ 
+ userData();
+
+
+
+
   return (
     <BoxNav sx={{ display: 'flex' }}>
       <AppBar component="nav" style={{ backgroundColor: '#31373d' }}>
@@ -66,6 +91,7 @@ function Navbar(props) {
             </BoxNav>
           </Typography>
           <BoxNav sx={{ display: { xs: 'none', sm: 'block', } }}>
+            <h1>{obj}</h1>
             <Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link>
             <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
             <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>

@@ -69,12 +69,7 @@ export default function SearchBar() {
                 } else {
                     toast.error(data);
                 }
-
             })
-
-
-       
-
     }
 
 
