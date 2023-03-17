@@ -13,7 +13,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Footer from "../components/footer";
 import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-
+import { Paper } from "@mui/material";
+import Logo from '../images/paper-plane.png';
 
 function SignUp() {
 
@@ -25,7 +26,7 @@ function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-   
+
     if (firstName.length === 0) {
       toast.error("Name has left Blank!");
     }
@@ -39,38 +40,38 @@ function SignUp() {
       toast.error("Password has left Blank!");
     }
     else {
-         handleApi();
-      }
+      handleApi();
     }
+  }
 
 
 
 
   function handleApi() {
-      const url = 'http://localhost:3001/src/server/signup.php';
-      let fData = new FormData();
-      fData.append('firstName', firstName);
-      fData.append('lastName', lastName);
-      fData.append('password', password);
-      fData.append('email', email);
-      fetch(url, {
-        method: 'POST',
-        body: fData,
-      })
+    const url = 'http://localhost:3001/src/server/signup.php';
+    let fData = new FormData();
+    fData.append('firstName', firstName);
+    fData.append('lastName', lastName);
+    fData.append('password', password);
+    fData.append('email', email);
+    fetch(url, {
+      method: 'POST',
+      body: fData,
+    })
       .then(response => response.text())
       .then(data => {
         let obj = JSON.parse(data);
-        if(obj.flag ===  1) {
+        if (obj.flag === 1) {
           toast.success(obj.success);
         } else {
           toast.error(obj.error);
         }
-      
+
       })
-    
-    }
-  
-    
+
+  }
+
+
 
   function Copyright(props) {
     return (
@@ -88,107 +89,125 @@ function SignUp() {
 
   return (
 
-    <main >
-      <div className="container" style={{ width:'100%', height:'1000px' }}>
-        <Navbar />
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 25,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <ToastContainer />
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
-              <Box component="form" sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      name="firstName"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      autoFocus
-                      autoComplete="given-name"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="family-name"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="email"
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
+    <ThemeProvider theme={theme}>
+      <Navbar />
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://source.unsplash.com/random/city?clouds)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <ToastContainer />
+
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5" color='secondary'>
+              Sign up
+            </Typography>
+            <Box component="form" sx={{ mt: 3 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    name="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    autoComplete="given-name"
+                  />
                 </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  color="secondary"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  onClick={handleSubmit}
-                >
-                  Sign Up
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link to='/login' variant="body2">
-                      Already have an account?
-                    </Link>
-                  </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                  />
                 </Grid>
-              </Box>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                color="secondary"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link to='/login' variant="body2">
+                    Already have an account?
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
-            <Copyright sx={{ mt: 5 }} />
-          </Container>
-        </ThemeProvider>
-      </div>
+          </Box>
+          <img src={Logo} className="card-img-top" style={{ width: '12rem' }} ></img>
+          <Copyright sx={{ mt: 5 }} />
+        </Grid>
+      </Grid>
       <Footer />
-    </main>
+    </ThemeProvider>
   );
 }
 
 export default SignUp;
+
+
+
