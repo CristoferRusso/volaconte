@@ -35,6 +35,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <SearchBar/>
     </div>
 
       <div className="container marketing">

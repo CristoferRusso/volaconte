@@ -15,16 +15,36 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import Navbar from '../components/navbar';
 import Logo from '../images/paper-plane.png';
+import {GoogleButton} from 'react-google-button'
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import {database} from '../firebase'
+import {ref,push,child,update} from "firebase/database";
 
 
 //import { useNavigate } from "react-router-dom";
 
 function Login() {
 
+
+
+  const {googleSignIn} = UserAuth();
+const navigate = useNavigate();
+ const handelGoogleSignIn = async () => {
+  try{
+    await googleSignIn() 
+    navigate('/')
+   // toast.success('You are logged in')
+  } catch (error) {
+    console.log(error)
+  }
+
+ }
+
+
   //const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [dataUsers, setDataUsers] = useState('');
 
 
   const handleLogin = (event) => {
@@ -34,8 +54,31 @@ function Login() {
     } else if (password.length === 0) {
       toast.error("Password has left Blank!");
     }
+  
     else {
+      handleApi();
+    }
+  }
 
+
+  
+  function handleApi() {
+
+    let obj = {
+
+      email:email,
+      password:password,
+  }       
+const newPostKey = push(child(ref(database), 'posts')).key;
+const updates = {};
+updates['/' + newPostKey] = obj
+return update(ref(database), updates);
+
+  }
+
+
+
+  /*
       const url = 'http://localhost:3001/src/server/login.php';
       let fData = new FormData();
       fData.append('password', password);
@@ -57,7 +100,7 @@ function Login() {
         })
     }
   }
-
+*/
   function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -107,6 +150,7 @@ function Login() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
+            <GoogleButton onClick={handelGoogleSignIn}/>
             <Typography component="h1" variant="h5" color='secondary'>
               Login
             </Typography>
@@ -150,9 +194,16 @@ function Login() {
               >
                 Login
               </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link to='/signup' variant="body2" color='secondary'>
+                   SIGNUP
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
-          <img src={Logo} className="card-img-top" style={{ width: '12rem' }} ></img>
+          <img src={Logo} className="card-img-top" style={{ width: '6rem' }} ></img>
           <Copyright sx={{ mt: 5 }} />
         </Grid>
       </Grid>

@@ -228,7 +228,7 @@ return update(ref(database), updates);
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleSubmit}
               >
-                Sign Up
+                SignUp
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
@@ -239,7 +239,7 @@ return update(ref(database), updates);
               </Grid>
             </Box>
           </Box>
-          <img src={Logo} className="card-img-top" style={{ width: '12rem' }} ></img>
+          <img src={Logo} className="card-img-top" style={{ width: '6rem' }} ></img>
           <Copyright sx={{ mt: 5 }} />
         </Grid>
       </Grid>
