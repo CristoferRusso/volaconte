@@ -12,18 +12,32 @@ import ButtonNav from '@mui/material/Button';
 import Logo from '../images/paper-plane.png';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
+import { UserAuth } from '../context/AuthContext';
+
 
 function Navbar(props) {
 
 
   const [obj, objSet] = useState('');
-
-
-
-
   const drawerWidth = 240;
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const {user, logOut} = UserAuth();
+
+
+const handelSingOut = async () => {
+  try {
+       await logOut()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
+
+
+
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -38,37 +52,25 @@ function Navbar(props) {
       <Divider />
       <List>
         <ul style={{listStyleType: 'none'}}>
+          <p>{user?.displayName}</p>
           <li><Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link></li>
-          <li><Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link></li>
+          {user?.displayName ? <ButtonNav color='secondary' onClick={handelSingOut}>Logout</ButtonNav> : 
+     //     <li><Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link></li> 
           <li><Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link></li>
+  }
         </ul>
+
       </List>
     </BoxNav>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
- const userData = () => {
-
-  const url = 'http://localhost:3001/src/api/userData.php';
- 
-  fetch(url, {
-    method: 'GET',
-  })
-  .then(response => response.text())
-  .then(data => {
-    obj = JSON.parse(data);
-  }
-  )
- }
- 
- userData();
-
 
 
 
   return (
-    <BoxNav sx={{ display: 'flex' }}>
+    <BoxNav  sx={{ display: 'flex' }}>
       <AppBar component="nav" style={{ backgroundColor: '#31373d' }}>
         <Toolbar>
           <IconButton
@@ -91,10 +93,13 @@ function Navbar(props) {
             </BoxNav>
           </Typography>
           <BoxNav sx={{ display: { xs: 'none', sm: 'block', } }}>
-            <h1>{obj}</h1>
             <Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link>
-            <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
-            <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>
+            {user?.displayName ? <ButtonNav color='secondary' onClick={handelSingOut}>Logout</ButtonNav> : 
+          //  <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
+              <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>
+            }
+                      <p>{user?.displayName}</p>
+
           </BoxNav>
         </Toolbar>
       </AppBar>

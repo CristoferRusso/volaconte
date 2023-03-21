@@ -15,11 +15,31 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { Paper } from "@mui/material";
 import Logo from '../images/paper-plane.png';
+import {GoogleButton} from 'react-google-button'
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import {database} from '../firebase'
+import {ref,push,child,update} from "firebase/database";
 
-function SignUp() {
+
+function SignUp (){
+const {googleSignIn} = UserAuth();
+const navigate = useNavigate();
+ const handelGoogleSignIn = async () => {
+  try{
+    await googleSignIn() 
+    navigate('/')
+   // toast.success('You are logged in')
+  } catch (error) {
+    console.log(error)
+  }
+
+ }
+
+
 
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [lastName, setLastName] = useState(''); 
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
@@ -46,6 +66,26 @@ function SignUp() {
 
 
 
+  function handleApi() {
+
+    let obj = {
+      firstName : firstName,
+      lastName:lastName,
+      email:email,
+      password:password,
+  }       
+const newPostKey = push(child(ref(database), 'posts')).key;
+const updates = {};
+updates['/' + newPostKey] = obj
+return update(ref(database), updates);
+
+  }
+
+
+
+
+
+/*
 
   function handleApi() {
     const url = 'http://localhost:3001/src/server/signup.php';
@@ -70,7 +110,7 @@ function SignUp() {
       })
 
   }
-
+*/
 
 
   function Copyright(props) {
@@ -122,6 +162,7 @@ function SignUp() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
+            <GoogleButton onClick={handelGoogleSignIn}/>
             <Typography component="h1" variant="h5" color='secondary'>
               Sign up
             </Typography>

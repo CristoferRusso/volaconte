@@ -80,7 +80,7 @@ export default function SearchBar() {
     return (
         <Box sx={{ flexGrow: 1, marginTop: 3 }} >
             <ToastContainer />
-            <AppBar  sx={{  alignItems: 'center', marginTop:8,  background: 'transparent', boxShadow: 'none'}}>
+            <AppBar position="static" sx={{  alignItems: 'center', marginTop:8,  background: 'transparent', boxShadow: 'none'}}>
                 <Toolbar>
                     <Box component="form" sx={{ mt: 4 }}>
                         <Grid container spacing={2}>
