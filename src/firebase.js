@@ -10,6 +10,7 @@ import { getDatabase } from "firebase/database"
 const firebaseConfig = {
   apiKey: "AIzaSyBZNnn0KXaI14bc7NCxI8Ecrp_TCtioiFg",
   authDomain: "volaconte-6179d.firebaseapp.com",
+  databaseURL: "https://volaconte-6179d-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "volaconte-6179d",
   storageBucket: "volaconte-6179d.appspot.com",
   messagingSenderId: "584448368393",

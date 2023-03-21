@@ -55,8 +55,8 @@ const handelSingOut = async () => {
           <p>{user?.displayName}</p>
           <li><Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link></li>
           {user?.displayName ? <ButtonNav color='secondary' onClick={handelSingOut}>Logout</ButtonNav> : 
-     //     <li><Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link></li> 
-          <li><Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link></li>
+          <li><Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link></li> 
+     //     <li><Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link></li>
   }
         </ul>
 
@@ -95,8 +95,8 @@ const handelSingOut = async () => {
           <BoxNav sx={{ display: { xs: 'none', sm: 'block', } }}>
             <Link to="/"><ButtonNav color='secondary'>Home</ButtonNav></Link>
             {user?.displayName ? <ButtonNav color='secondary' onClick={handelSingOut}>Logout</ButtonNav> : 
-          //  <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
-              <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>
+            <Link to="/login"><ButtonNav color='secondary'>Login</ButtonNav></Link>
+          //    <Link to="/signup"><ButtonNav color='secondary'>Signup</ButtonNav></Link>
             }
                       <p>{user?.displayName}</p>
 
